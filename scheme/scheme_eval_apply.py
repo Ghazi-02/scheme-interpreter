@@ -43,7 +43,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
             return  
         elif isinstance(lnk,Pair):
             arguments = lnk.rest.map(lambda x: scheme_eval(x,env,_))
-            return scheme_apply(scheme_eval(lnk.first,env),arguments,env,)
+            return scheme_apply(scheme_eval(lnk.first,env),arguments,env)
 
         
         
@@ -94,7 +94,10 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
-    return scheme_eval(expressions.first, env)  # replace this with lines of your own code
+    var = None
+    for x in flatten(expressions):
+        var = scheme_eval(x, env)  # replace this with lines of your own code
+    return var
     # END PROBLEM 6
 
 
