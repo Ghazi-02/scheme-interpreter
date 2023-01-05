@@ -2,6 +2,11 @@ import builtins
 
 from pair import *
 
+def flatten(link):
+    if link is nil:
+        return []
+    else:
+        return [link.first] + flatten(link.rest)
 
 class SchemeError(Exception):
     """Exception indicating an error in a Scheme program."""
@@ -56,9 +61,17 @@ class Frame:
         """
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
-        # BEGIN PROBLEM 8
-        "*** YOUR CODE HERE ***"
-        # END PROBLEM 8
+        newFrame = Frame(self)
+        formalsList = flatten(formals)
+        valsList = flatten(vals)
+        print("DEBUG:",valsList,formalsList)
+        x=0
+        while x < len(formalsList):
+            for y in valsList:
+                newFrame.define(formalsList[x],y)
+                x += 1
+        return newFrame 
+            # END PROBLEM 8
 
 ##############
 # Procedures #
