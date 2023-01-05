@@ -11,7 +11,7 @@ import scheme_forms
 ##############
 
 
-def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
+def scheme_eval(expr, env, _=None):  # Optional third argument is ignored 
     """Evaluate Scheme expression EXPR in Frame ENV.
 
     >>> expr = read_line('(+ 2 2)')
@@ -22,7 +22,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     """
     # Evaluate atoms
     if scheme_symbolp(expr):
-        return env.lookup(expr)
+        return env.lookup(expr) # finds value of a name
     elif self_evaluating(expr):
         return expr
 
@@ -33,7 +33,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     if scheme_symbolp(first) and first in scheme_forms.SPECIAL_FORMS:
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
-        # BEGIN PROBLEM 3
+        # BEGIN PROBLEM 3 missing the logic for call expressions.
         "*** YOUR CODE HERE ***"
         # END PROBLEM 3
 
