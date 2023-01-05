@@ -45,13 +45,14 @@ def scheme_apply(procedure, args, env):
     if not isinstance(env, Frame):
        assert False, "Not a Frame: {}".format(env)
     if isinstance(procedure, BuiltinProcedure):
-        # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
-        # END PROBLEM 2
+        flattened = []
+        while args is not nil:
+            flattened.append(args.first)
+            args=args.rest
+        if procedure.need_env == True:
+            flattened.append(env)
         try:
-            # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
-            # END PROBLEM 2
+           return procedure.py_func(*flattened)
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
