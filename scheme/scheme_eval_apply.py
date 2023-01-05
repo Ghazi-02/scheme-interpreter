@@ -9,8 +9,11 @@ import scheme_forms
 ##############
 # Eval/Apply #
 ##############
-
-
+def flatten(link):
+    if link is nil:
+        return []
+    else:
+        return [link.first] + flatten(link.rest)
 def scheme_eval(expr, env, _=None):  # Optional third argument is ignored 
     """Evaluate Scheme expression EXPR in Frame ENV.
 
@@ -34,7 +37,17 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
         # BEGIN PROBLEM 3 missing the logic for call expressions.
-        "*** YOUR CODE HERE ***"
+        lnk= expr
+        
+        if lnk is nil:
+            return  
+        elif isinstance(lnk,Pair):
+            arguments = lnk.rest.map(lambda x: scheme_eval(x,env,_))
+            return scheme_apply(scheme_eval(lnk.first,env),arguments,env,)
+
+        
+        
+        
         # END PROBLEM 3
 
 
@@ -45,14 +58,12 @@ def scheme_apply(procedure, args, env):
     if not isinstance(env, Frame):
        assert False, "Not a Frame: {}".format(env)
     if isinstance(procedure, BuiltinProcedure):
-        flattened = []
-        while args is not nil:
-            flattened.append(args.first)
-            args=args.rest
+        lst = flatten(args)
+        
         if procedure.need_env == True:
-            flattened.append(env)
+            lst.append(env)
         try:
-           return procedure.py_func(*flattened)
+           return procedure.py_func(*lst)
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
