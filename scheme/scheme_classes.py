@@ -64,7 +64,7 @@ class Frame:
         newFrame = Frame(self)
         formalsList = flatten(formals)
         valsList = flatten(vals)
-        print("DEBUG:",valsList,formalsList)
+        
         x=0
         while x < len(formalsList):
             for y in valsList:
