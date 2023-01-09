@@ -137,7 +137,7 @@ def do_and_form(expressions, env):
     4
     False
     """
-    print("DEBUG:",expressions)
+    
     
     # BEGIN PROBLEM 12
     if expressions is nil:
@@ -234,11 +234,11 @@ def make_let_frame(bindings, env):
     for x in flatten(bindings):
         if x.rest is nil:
             raise SchemeError('bad bindings list in let form')
-        validate_form(x, 1 , 2)
+        validate_form(x, 2 , 2)
         names = Pair(x.first,names)
         vals = Pair(scheme_eval(x.rest.first,env),vals)
         
-        print("DEBUG:",names,vals,x)
+
     validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
