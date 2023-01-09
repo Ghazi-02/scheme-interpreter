@@ -54,7 +54,6 @@ def do_define_form(expressions, env):
         symbol = signature.first
         formals = signature.rest
         body = expressions.rest
-        print("DEBUG:",formals,"signature",body)
         lambdaProc = do_lambda_form(Pair(formals,body),env)
         env.define(symbol,lambdaProc)
         return symbol
@@ -169,7 +168,7 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    print("DEBUG:",expressions)
+    
     
     # BEGIN PROBLEM 12
     if expressions is nil:
@@ -202,7 +201,11 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+        
+            if clause.rest is nil:
+                return test
+            else:
+                return eval_all(clause.rest,env)
             # END PROBLEM 13
         expressions = expressions.rest
 
