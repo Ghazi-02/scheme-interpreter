@@ -169,7 +169,17 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-
+    print("DEBUG:",expressions)
+    
+    # BEGIN PROBLEM 12
+    if expressions is nil:
+        return False
+    elif expressions.rest is nil:
+        return scheme_eval(expressions.first,env)
+    elif is_scheme_true(scheme_eval(expressions.first,env)):
+        return scheme_eval(expressions.first,env)
+    else:
+        return do_or_form(expressions.rest,env) 
     
   
     # END PROBLEM 12
