@@ -12,7 +12,11 @@ from scheme_builtins import *
 # initial identifying symbol (if, lambda, quote, ...). Its second argument is
 # the environment in which the form is to be evaluated.
 
-
+def flatten(link):
+    if link is nil:
+        return []
+    else:
+        return [link.first] + flatten(link.rest)
 def do_define_form(expressions, env):
     """Evaluate a define form.
     >>> env = create_global_frame()
@@ -134,8 +138,19 @@ def do_and_form(expressions, env):
     4
     False
     """
+    print("DEBUG:",expressions)
+    
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+    elif expressions.rest is nil:
+        return scheme_eval(expressions.first,env)
+    elif is_scheme_false(scheme_eval(expressions.first,env)):
+        return scheme_eval(expressions.first,env)
+    else:
+        return do_and_form(expressions.rest,env) 
+    
+  
     # END PROBLEM 12
 
 
@@ -154,7 +169,9 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+
+    
+  
     # END PROBLEM 12
 
 
